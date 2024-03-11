@@ -1,17 +1,16 @@
 package net.onelitefeather.labyrinth.commands;
 
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.onelitefeather.labyrinth.Labyrinth;
 import net.onelitefeather.labyrinth.utils.Constants;
+import net.onelitefeather.labyrinth.utils.ValidateZoneInput;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.incendo.cloud.annotations.Argument;
 import org.incendo.cloud.annotations.Command;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.regex.Matcher;
 
 
 @Command("labyrinth")
@@ -24,24 +23,14 @@ public class SetRadiusCommand {
     }
 
     @Command("setradius <zone>")
-    public void setRadius(@NotNull Player player, @Argument(value = "zone", suggestions = "zones") String zone) {
+    public void setRadius(@NotNull Player player, @Argument(value = "zone" /*,suggestions = "zones"*/) String zone) {
 
-        if (labyrinth.getConfig().isSet(zone)) {
-            player.sendMessage(MiniMessage.miniMessage().deserialize(
-                    "Zone <zone> could not be found!", Placeholder.unparsed("zone", zone)));
-            return;
-        }
-
-        Matcher matcher = Constants.PATTERN.matcher(zone);
-        boolean notMatches = !(matcher.matches());
-        if (notMatches) {
-            player.sendMessage(Component.text("Only characters without symbols are allowed"));
-            return;
-        }
+        ValidateZoneInput.validateZoneInput(player, zone, labyrinth);
         Location playerLabyrinthCenterLocation = player.getLocation();
 
         Location location = labyrinth.getConfig().getLocation(Constants.CONFIG_ZONE_CENTER_PATH.formatted(zone));
         if (location == null) return;
+
 
         labyrinth.getConfig().set(Constants.CONFIG_ZONE_RADIUS_PATH.formatted(zone), playerLabyrinthCenterLocation.distance(location));
         labyrinth.saveConfig();
