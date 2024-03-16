@@ -1,8 +1,5 @@
 package net.onelitefeather.labyrinth.commands;
 
-import net.kyori.adventure.chat.ChatType;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.ComponentLike;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.onelitefeather.labyrinth.Labyrinth;
@@ -29,7 +26,13 @@ public record SetRadiusCommand(Labyrinth labyrinth) implements ZoneSuggestions {
 
             labyrinth.getConfig().set(Constants.CONFIG_ZONE_RADIUS_PATH.formatted(zone), playerLabyrinthCenterLocation.distance(location));
             labyrinth.saveConfig();
-            var message = MiniMessage.miniMessage().deserialize(Constants.SET_RADIUS_MESSAGE, Placeholder.unparsed("zone", zone), Placeholder.component("prefix", Constants.PREFIX));
+            var message = MiniMessage.miniMessage().deserialize(Constants.SET_RADIUS_MESSAGE,
+                    Placeholder.unparsed("zone", zone),
+                    Placeholder.component("prefix", Constants.PREFIX));
+            player.sendMessage(message);
+        } else {
+            var message = MiniMessage.miniMessage().deserialize(Constants.ZONE_INVALID_MESSAGE,
+                    Placeholder.component("prefix", Constants.PREFIX));
             player.sendMessage(message);
         }
 

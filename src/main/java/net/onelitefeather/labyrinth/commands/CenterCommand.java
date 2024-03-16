@@ -17,8 +17,14 @@ public record CenterCommand(Labyrinth labyrinth) implements ZoneSuggestions {
         if (ValidateZoneInput.validateZoneInput(player, zone, labyrinth)) {
             this.labyrinth.getConfig().set(Constants.CONFIG_ZONE_CENTER_PATH.formatted(zone), player.getLocation());
             labyrinth.saveConfig();
-            player.sendMessage(MiniMessage.miniMessage().deserialize(
-                    "Zone <zone> was successfully set!", Placeholder.unparsed("zone", zone)));
+            var message = MiniMessage.miniMessage().deserialize(Constants.CENTER_COMMAND_MESSAGE_SUCCESS,
+                    Placeholder.unparsed("zone", zone),
+                    Placeholder.component("prefix", Constants.PREFIX));
+            player.sendMessage(message);
+        } else {
+            var message = MiniMessage.miniMessage().deserialize(Constants.ZONE_INVALID_MESSAGE,
+                    Placeholder.component("prefix", Constants.PREFIX));
+            player.sendMessage(message);
         }
     }
 }
