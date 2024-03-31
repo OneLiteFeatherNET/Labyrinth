@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.incendo.cloud.annotations.Argument;
 import org.incendo.cloud.annotations.Command;
+import org.incendo.cloud.annotations.Permission;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -16,6 +17,7 @@ import org.jetbrains.annotations.NotNull;
 public record SetRadiusCommand(Labyrinth labyrinth) implements ZoneSuggestions {
 
     @Command("setradius <zone>")
+    @Permission("labyrinth.setup.setradius")
     public void setRadius(@NotNull Player player, @Argument(value = "zone", suggestions = "zone") String zone) {
         if (ValidateZoneInput.validateZoneInput(player, zone, labyrinth)) {
             Location playerLabyrinthCenterLocation = player.getLocation();
