@@ -10,7 +10,7 @@ pluginManagement {
 dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
-            version("publishdata", "1.2.5-DEV")
+            version("publishdata", "1.2.5-RELEASE")
             plugin("publishdata", "de.chojo.publishdata").versionRef("publishdata")
         }
     }
