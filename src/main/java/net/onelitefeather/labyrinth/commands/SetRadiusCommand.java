@@ -15,7 +15,7 @@ import java.util.regex.Matcher;
 
 
 @Command("labyrinth")
-public class SetRadiusCommand {
+public final class SetRadiusCommand {
 
     private final Labyrinth labyrinth;
 
