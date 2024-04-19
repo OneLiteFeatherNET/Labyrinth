@@ -11,7 +11,7 @@ import org.incendo.cloud.annotations.Command;
 import java.util.regex.Matcher;
 
 @Command("labyrinth")
-public class CenterCommand {
+public final class CenterCommand {
 
     private final Labyrinth labyrinth;
 
