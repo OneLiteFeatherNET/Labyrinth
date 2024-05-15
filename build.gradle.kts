@@ -2,11 +2,12 @@ import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
 
 plugins {
     id("java")
-    id("net.minecrell.plugin-yml.paper") version "0.6.0"
-    id("xyz.jpenilla.run-paper") version "2.2.3"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
-    `maven-publish`
+    alias(libs.plugins.run.paper)
+    alias(libs.plugins.plugin.yml)
+    alias(libs.plugins.shadow)
     alias(libs.plugins.publishdata)
+
+    `maven-publish`
 }
 
 group = "net.onelitefeather"
@@ -18,10 +19,12 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
-    implementation("org.incendo:cloud-paper:2.0.0-beta.2")
-    implementation("org.incendo:cloud-annotations:2.0.0-beta.2")
-    implementation("org.incendo:cloud-bukkit:2.0.0-beta.2")
+    implementation(libs.cloudPaper)
+    implementation(libs.cloudAnnotations)
+    implementation(libs.cloudBukkit)
+    implementation(libs.adventurePlatformBukkit)
+    implementation(libs.paper)
+
 }
 java {
     sourceCompatibility = JavaVersion.VERSION_17
