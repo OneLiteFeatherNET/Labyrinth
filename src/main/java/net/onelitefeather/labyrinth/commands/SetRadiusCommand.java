@@ -6,11 +6,14 @@ import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.onelitefeather.labyrinth.Labyrinth;
 import net.onelitefeather.labyrinth.utils.Constants;
 import org.bukkit.Location;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.incendo.cloud.annotations.Argument;
 import org.incendo.cloud.annotations.Command;
+import org.incendo.cloud.annotations.suggestion.Suggestions;
+import org.incendo.cloud.context.CommandContext;
 import org.jetbrains.annotations.NotNull;
-
+import java.util.List;
 import java.util.regex.Matcher;
 
 
@@ -47,5 +50,11 @@ public final class SetRadiusCommand {
         labyrinth.saveConfig();
         player.sendMessage(MiniMessage.miniMessage().deserialize(
                 "The radius for zone <zone> was successfully set!", Placeholder.unparsed("zone", zone)));
+    }
+
+    @Suggestions("zones")
+    public List<String> suggestZone(CommandContext<CommandSender> context, String input) {
+        var zoneConfigurationSection = labyrinth.getConfig().getConfigurationSection("zones");
+        return zoneConfigurationSection.getKeys(false).stream().filter(key-> key.equalsIgnoreCase("zone")).toList();
     }
 }
