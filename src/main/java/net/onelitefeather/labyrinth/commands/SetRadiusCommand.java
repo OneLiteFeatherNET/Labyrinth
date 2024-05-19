@@ -8,12 +8,19 @@ import net.onelitefeather.labyrinth.utils.Constants;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.util.StringUtil;
+import org.checkerframework.checker.nullness.qual.NonNull;
 import org.incendo.cloud.annotations.Argument;
 import org.incendo.cloud.annotations.Command;
 import org.incendo.cloud.annotations.suggestion.Suggestions;
 import org.incendo.cloud.context.CommandContext;
+import org.incendo.cloud.context.CommandInput;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 
 
@@ -52,9 +59,15 @@ public final class SetRadiusCommand {
                 "The radius for zone <zone> was successfully set!", Placeholder.unparsed("zone", zone)));
     }
 
+
     @Suggestions("zones")
-    public List<String> suggestZone(CommandContext<CommandSender> context, String input) {
-        var zoneConfigurationSection = labyrinth.getConfig().getConfigurationSection("zones");
-        return zoneConfigurationSection.getKeys(false).stream().filter(key-> key.equalsIgnoreCase("zone")).toList();
+    public @NonNull List<@NonNull String> suggestZones(
+            final @NonNull CommandContext<CommandSender> context,
+            @NonNull CommandInput commandInput) {
+        Set<String> zones = new HashSet<>();
+        if(labyrinth.getConfig().getConfigurationSection("zones") != null) {
+            zones = labyrinth.getConfig().getConfigurationSection("zones").getKeys(false);
+        }
+        return StringUtil.copyPartialMatches(commandInput.peekString(), zones, new ArrayList<>(zones));
     }
 }
