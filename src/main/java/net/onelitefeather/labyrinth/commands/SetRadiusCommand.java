@@ -60,14 +60,5 @@ public final class SetRadiusCommand {
     }
 
 
-    @Suggestions("zones")
-    public @NonNull List<@NonNull String> suggestZones(
-            final @NonNull CommandContext<CommandSender> context,
-            @NonNull CommandInput commandInput) {
-        Set<String> zones = new HashSet<>();
-        if(labyrinth.getConfig().getConfigurationSection("zones") != null) {
-            zones = labyrinth.getConfig().getConfigurationSection("zones").getKeys(false);
-        }
-        return StringUtil.copyPartialMatches(commandInput.peekString(), zones, new ArrayList<>(zones));
-    }
+
 }

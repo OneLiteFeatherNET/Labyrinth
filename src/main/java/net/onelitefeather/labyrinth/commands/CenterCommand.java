@@ -20,7 +20,7 @@ public final class CenterCommand {
     }
 
     @Command("center <zone>")
-    public void centerCommand(Player player, @Argument(value = "zone") String zone) {
+    public void centerCommand(Player player, @Argument(value = "zone", suggestions = "zones") String zone) {
 
         var configPath = Constants.CONFIG_ZONE_PATH.formatted(zone);
 
