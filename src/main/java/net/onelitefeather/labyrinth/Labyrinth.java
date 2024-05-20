@@ -1,7 +1,10 @@
 package net.onelitefeather.labyrinth;
 
 import net.onelitefeather.labyrinth.commands.CenterCommand;
+import net.onelitefeather.labyrinth.commands.CreateZoneCommand;
+import net.onelitefeather.labyrinth.commands.ToggleMobSpawnCommand;
 import net.onelitefeather.labyrinth.commands.SetRadiusCommand;
+import net.onelitefeather.labyrinth.listener.MobspawnListener;
 import net.onelitefeather.labyrinth.commands.ZoneSuggestions;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -20,6 +23,7 @@ public class Labyrinth extends JavaPlugin {
     public void onEnable() {
         saveDefaultConfig();
         registerCommands();
+        registerListeners();
     }
 
     public void registerCommands() {
@@ -35,6 +39,12 @@ public class Labyrinth extends JavaPlugin {
         annotationParser.parse(new ZoneSuggestions(this));
         annotationParser.parse(new CenterCommand(this));
         annotationParser.parse(new SetRadiusCommand(this));
+        annotationParser.parse(new ToggleMobSpawnCommand(this));
+        annotationParser.parse(new CreateZoneCommand(this));
+    }
+
+    public void registerListeners() {
+        getServer().getPluginManager().registerEvents(new MobspawnListener(this), this);
     }
 
 }

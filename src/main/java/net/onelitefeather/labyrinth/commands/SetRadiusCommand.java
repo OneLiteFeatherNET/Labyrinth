@@ -1,10 +1,10 @@
 package net.onelitefeather.labyrinth.commands;
 
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.onelitefeather.labyrinth.Labyrinth;
 import net.onelitefeather.labyrinth.utils.Constants;
+import net.onelitefeather.labyrinth.utils.ValidateZoneInput;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -17,46 +17,31 @@ import org.incendo.cloud.context.CommandContext;
 import org.incendo.cloud.context.CommandInput;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.regex.Matcher;
-
 
 @Command("labyrinth")
-public final class SetRadiusCommand {
-
-    private final Labyrinth labyrinth;
-
-    public SetRadiusCommand(Labyrinth labyrinth) {
-        this.labyrinth = labyrinth;
-    }
+public record SetRadiusCommand(Labyrinth labyrinth) implements ZoneSuggestions {
 
     @Command("setradius <zone>")
-    public void setRadius(@NotNull Player player, @Argument(value = "zone", suggestions = "zones") String zone) {
+    public void setRadius(@NotNull Player player, @Argument(value = "zone", suggestions = "zone") String zone) {
+        if (ValidateZoneInput.validateZoneInput(player, zone, labyrinth)) {
+            Location playerLabyrinthCenterLocation = player.getLocation();
 
-        if (labyrinth.getConfig().isSet(zone)) {
-            player.sendMessage(MiniMessage.miniMessage().deserialize(
-                    "Zone <zone> could not be found!", Placeholder.unparsed("zone", zone)));
-            return;
+            Location location = labyrinth.getConfig().getLocation(Constants.CONFIG_ZONE_CENTER_PATH.formatted(zone));
+            if (location == null) return;
+
+
+            labyrinth.getConfig().set(Constants.CONFIG_ZONE_RADIUS_PATH.formatted(zone), playerLabyrinthCenterLocation.distance(location));
+            labyrinth.saveConfig();
+            var message = MiniMessage.miniMessage().deserialize(Constants.SET_RADIUS_MESSAGE,
+                    Placeholder.unparsed("zone", zone),
+                    Placeholder.component("prefix", Constants.PREFIX));
+            player.sendMessage(message);
+        } else {
+            var message = MiniMessage.miniMessage().deserialize(Constants.ZONE_INVALID_MESSAGE,
+                    Placeholder.component("prefix", Constants.PREFIX));
+            player.sendMessage(message);
         }
 
-        Matcher matcher = Constants.PATTERN.matcher(zone);
-        boolean notMatches = !(matcher.matches());
-        if (notMatches) {
-            player.sendMessage(Component.text("Only characters without symbols are allowed"));
-            return;
-        }
-        Location playerLabyrinthCenterLocation = player.getLocation();
-
-        Location location = labyrinth.getConfig().getLocation(Constants.CONFIG_ZONE_CENTER_PATH.formatted(zone));
-        if (location == null) return;
-
-        labyrinth.getConfig().set(Constants.CONFIG_ZONE_RADIUS_PATH.formatted(zone), playerLabyrinthCenterLocation.distance(location));
-        labyrinth.saveConfig();
-        player.sendMessage(MiniMessage.miniMessage().deserialize(
-                "The radius for zone <zone> was successfully set!", Placeholder.unparsed("zone", zone)));
     }
 
 

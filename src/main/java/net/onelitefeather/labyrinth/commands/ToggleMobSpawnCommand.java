@@ -1,29 +1,28 @@
 package net.onelitefeather.labyrinth.commands;
 
-import io.papermc.paper.math.BlockPosition;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.onelitefeather.labyrinth.Labyrinth;
 import net.onelitefeather.labyrinth.utils.Constants;
 import net.onelitefeather.labyrinth.utils.ValidateZoneInput;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.incendo.cloud.annotations.Argument;
 import org.incendo.cloud.annotations.Command;
+import org.jetbrains.annotations.NotNull;
 
 @Command("labyrinth")
-public record CenterCommand(Labyrinth labyrinth) implements ZoneSuggestions {
+public record ToggleMobSpawnCommand(Labyrinth labyrinth) implements ZoneSuggestions {
 
-    @Command("center <zone>")
-    public void centerCommand(Player player, @Argument(value = "zone", suggestions = "zone") String zone) {
-        Location location = player.getLocation();
-        BlockPosition blockPosition = location.toBlock();
+    @Command("toggle <zone>")
+    public void toggleMobSpawn(@NotNull Player player, @Argument(value = "zone", suggestions = "zone") String zone) {
         if (ValidateZoneInput.validateZoneInput(player, zone, labyrinth)) {
-            this.labyrinth.getConfig().set(Constants.CONFIG_ZONE_CENTER_PATH.formatted(zone), blockPosition);
+            boolean mobSpawning = !labyrinth.getConfig().getBoolean(Constants.CONFIG_ZONE_MOBSPAWNING_PATH.formatted(zone), false);
+            labyrinth.getConfig().set(Constants.CONFIG_ZONE_MOBSPAWNING_PATH.formatted(zone), mobSpawning);
             labyrinth.saveConfig();
-            var message = MiniMessage.miniMessage().deserialize(Constants.CENTER_COMMAND_MESSAGE_SUCCESS,
+            var message = MiniMessage.miniMessage().deserialize(Constants.TOGGLE_MOB_SPAWN_COMMAND_MESSAGE_SUCCESS,
                     Placeholder.unparsed("zone", zone),
-                    Placeholder.component("prefix", Constants.PREFIX));
+                    Placeholder.component("prefix", Constants.PREFIX),
+                    Placeholder.unparsed("value", String.valueOf(mobSpawning)));
             player.sendMessage(message);
         } else {
             var message = MiniMessage.miniMessage().deserialize(Constants.ZONE_INVALID_MESSAGE,
