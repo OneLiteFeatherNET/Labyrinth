@@ -7,6 +7,7 @@ import net.onelitefeather.labyrinth.utils.Constants;
 import org.bukkit.entity.Player;
 import org.incendo.cloud.annotations.Argument;
 import org.incendo.cloud.annotations.Command;
+import org.incendo.cloud.annotations.Permission;
 
 import java.util.regex.Matcher;
 
@@ -15,6 +16,7 @@ import java.util.regex.Matcher;
 public record CreateZoneCommand(Labyrinth labyrinth) implements ZoneSuggestions {
 
     @Command("create <zone>")
+    @Permission("labyrinth.setup.createzone")
     public void createZone(Player player, @Argument(value = "zone", suggestions = "zone") String zone) {
         Matcher matcher = Constants.PATTERN.matcher(zone);
         if (matcher.matches()) {
