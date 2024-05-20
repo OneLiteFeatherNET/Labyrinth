@@ -90,10 +90,16 @@ paper {
 
     permissions {
         register("labyrinth.setup.center") {
-            default = BukkitPluginDescription.Permission.Default.TRUE
+            description = "This permission is needed to create the center of the zone"
         }
         register("labyrinth.setup.setradius") {
-            default = BukkitPluginDescription.Permission.Default.TRUE
+            description = "This permission is needed to set the radius of the zone."
+        }
+        register("labyrinth.toggle.mobspawn") {
+            description = "This permission is needed to toggle mobspawning for the zone."
+        }
+        register("labyrinth.setup.createzone") {
+            description = "This permission is needed to create a new zone entry."
         }
 
     }
