@@ -2,9 +2,9 @@ package net.onelitefeather.labyrinth.listener;
 
 import net.onelitefeather.labyrinth.Labyrinth;
 import net.onelitefeather.labyrinth.utils.Constants;
-import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Monster;
+import org.bukkit.entity.Bat;
+import org.bukkit.entity.Mob;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntitySpawnEvent;
@@ -20,11 +20,10 @@ public class MobspawnListener implements Listener {
 
     @EventHandler
     public void onMobSpawn(EntitySpawnEvent event) {
-        if (!(event.getEntity() instanceof Monster)) {
+        if (!(event.getEntity() instanceof Mob && !(event.getEntity() instanceof Bat))) {
             return;
         }
 
-        Location location = event.getLocation();
         FileConfiguration config = labyrinth.getConfig();
         var zoneSection = config.getConfigurationSection("zones");
         if (zoneSection == null) {
@@ -33,9 +32,8 @@ public class MobspawnListener implements Listener {
         Set<String> zones = zoneSection.getKeys(false);
         for (String zone : zones) {
             var centerLocation = config.getLocation(Constants.CONFIG_ZONE_CENTER_PATH.formatted(zone));
-            var radius = config.getDouble(Constants.CONFIG_ZONE_RADIUS_PATH.formatted(zone));
             var enabled = config.getBoolean(Constants.CONFIG_ZONE_MOBSPAWNING_PATH.formatted(zone));
-            if (enabled && centerLocation != null && location.distance(centerLocation) < radius) {
+            if (enabled && centerLocation != null) {
                 event.setCancelled(true);
             }
         }
