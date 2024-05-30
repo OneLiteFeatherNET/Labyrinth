@@ -10,7 +10,7 @@ import org.incendo.cloud.context.CommandContext;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ZoneSuggestions {
+public final class ZoneSuggestions {
     private final Labyrinth labyrinth;
 
     public ZoneSuggestions(Labyrinth labyrinth) {
