@@ -12,12 +12,24 @@ import org.bukkit.event.entity.EntitySpawnEvent;
 import java.util.Set;
 
 public class MobspawnListener implements Listener {
+
+    /**
+     * An instance of the Labyrinth from the Labyrinth class
+     */
     private final Labyrinth labyrinth;
 
     public MobspawnListener(Labyrinth labyrinth) {
         this.labyrinth = labyrinth;
     }
 
+    /**
+     * This event is used for canceling mob spawning in an existing labyrinth region because on our labyrinth build
+     * On our server there is no lighting below / above, and we don't want mobs to spawn there, also Bats are friendly but
+     * Only spawn in caves or when Minecraft thinks we are in a cave, so we don't want to let them spawn too.
+     * @param event is EntitySpawnEvent which is called when an Entity spawns on the world
+     *
+     * This Mobspawn Feature can be toggled and is saved for each zone in the configuration separately
+     */
     @EventHandler
     public void onMobSpawn(EntitySpawnEvent event) {
         if (!(event.getEntity() instanceof Mob && !(event.getEntity() instanceof Bat))) {
