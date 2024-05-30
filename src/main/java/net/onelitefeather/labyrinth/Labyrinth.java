@@ -14,8 +14,6 @@ import org.incendo.cloud.execution.ExecutionCoordinator;
 import org.incendo.cloud.meta.CommandMeta;
 import org.incendo.cloud.paper.PaperCommandManager;
 
-import java.lang.annotation.Annotation;
-
 public class Labyrinth extends JavaPlugin {
 
     @Override
