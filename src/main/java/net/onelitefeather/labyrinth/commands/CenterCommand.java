@@ -18,6 +18,7 @@ public record CenterCommand(Labyrinth labyrinth) implements ZoneSuggestions {
     @Permission("labyrinth.setup.center")
     public void centerCommand(Player player, @Argument(value = "zone", suggestions = "zone") String zone) {
         Location location = player.getLocation();
+        location.setY(0);
         if (ValidateZoneInput.validateZoneInput(player, zone, labyrinth)) {
             this.labyrinth.getConfig().set(Constants.CONFIG_ZONE_CENTER_PATH.formatted(zone), location);
             labyrinth.saveConfig();

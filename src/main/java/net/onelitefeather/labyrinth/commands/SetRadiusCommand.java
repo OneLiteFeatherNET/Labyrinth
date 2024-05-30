@@ -27,6 +27,7 @@ public record SetRadiusCommand(Labyrinth labyrinth) implements ZoneSuggestions {
     public void setRadius(@NotNull Player player, @Argument(value = "zone", suggestions = "zone") String zone) {
         if (ValidateZoneInput.validateZoneInput(player, zone, labyrinth)) {
             Location playerLabyrinthCenterLocation = player.getLocation();
+            playerLabyrinthCenterLocation.setY(0);
 
             Location location = labyrinth.getConfig().getLocation(Constants.CONFIG_ZONE_CENTER_PATH.formatted(zone));
             if (location == null) return;
