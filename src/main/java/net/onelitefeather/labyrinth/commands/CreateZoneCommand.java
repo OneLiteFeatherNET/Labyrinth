@@ -13,11 +13,11 @@ import java.util.regex.Matcher;
 
 
 @Command("labyrinth")
-public record CreateZoneCommand(Labyrinth labyrinth) implements ZoneSuggestions {
+public record CreateZoneCommand(Labyrinth labyrinth) {
 
     @Command("create <zone>")
     @Permission("labyrinth.setup.createzone")
-    public void createZone(Player player, @Argument(value = "zone", suggestions = "zone") String zone) {
+    public void createZone(Player player, @Argument(value = "zone", suggestions = "zones") String zone) {
         Matcher matcher = Constants.PATTERN.matcher(zone);
         if (matcher.matches()) {
             labyrinth.getConfig().createSection(Constants.CONFIG_ZONE_PATH.formatted(zone));
