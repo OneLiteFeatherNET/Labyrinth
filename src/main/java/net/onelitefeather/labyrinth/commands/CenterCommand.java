@@ -12,11 +12,11 @@ import org.incendo.cloud.annotations.Command;
 import org.incendo.cloud.annotations.Permission;
 
 @Command("labyrinth")
-public record CenterCommand(Labyrinth labyrinth) implements ZoneSuggestions {
+public record CenterCommand(Labyrinth labyrinth) {
 
     @Command("center <zone>")
     @Permission("labyrinth.setup.center")
-    public void centerCommand(Player player, @Argument(value = "zone", suggestions = "zone") String zone) {
+    public void centerCommand(Player player, @Argument(value = "zone", suggestions = "zones") String zone) {
         Location location = player.getLocation();
         if (ValidateZoneInput.validateZoneInput(player, zone, labyrinth)) {
             this.labyrinth.getConfig().set(Constants.CONFIG_ZONE_CENTER_PATH.formatted(zone), location);

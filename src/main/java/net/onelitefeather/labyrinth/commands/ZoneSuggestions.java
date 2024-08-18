@@ -10,16 +10,19 @@ import org.incendo.cloud.context.CommandContext;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface ZoneSuggestions {
+public final class ZoneSuggestions {
+    private final Labyrinth labyrinth;
 
-    @Suggestions("zone")
-    default List<String> suggestions(CommandContext<CommandSender> context, String input) {
-        ConfigurationSection zones = labyrinth().getConfig().getConfigurationSection("zones");
+    public ZoneSuggestions(Labyrinth labyrinth) {
+        this.labyrinth = labyrinth;
+    }
+
+    @Suggestions("zones")
+    public List<String> suggestions(CommandContext<CommandSender> context, String input) {
+        ConfigurationSection zones = labyrinth.getConfig().getConfigurationSection("zones");
         if (zones == null) {
             return List.of();
         }
         return StringUtil.copyPartialMatches(input, zones.getKeys(false).stream().toList(), new ArrayList<>()) ;
     }
-
-    Labyrinth labyrinth();
 }

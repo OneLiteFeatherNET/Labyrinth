@@ -12,11 +12,11 @@ import org.incendo.cloud.annotations.Permission;
 import org.jetbrains.annotations.NotNull;
 
 @Command("labyrinth")
-public record ToggleMobSpawnCommand(Labyrinth labyrinth) implements ZoneSuggestions {
+public record ToggleMobSpawnCommand(Labyrinth labyrinth) {
 
     @Command("toggle <zone>")
     @Permission("labyrinth.toggle.mobspawn")
-    public void toggleMobSpawn(@NotNull Player player, @Argument(value = "zone", suggestions = "zone") String zone) {
+    public void toggleMobSpawn(@NotNull Player player, @Argument(value = "zone", suggestions = "zones") String zone) {
         if (ValidateZoneInput.validateZoneInput(player, zone, labyrinth)) {
             boolean mobSpawning = !labyrinth.getConfig().getBoolean(Constants.CONFIG_ZONE_MOBSPAWNING_PATH.formatted(zone), false);
             labyrinth.getConfig().set(Constants.CONFIG_ZONE_MOBSPAWNING_PATH.formatted(zone), mobSpawning);
