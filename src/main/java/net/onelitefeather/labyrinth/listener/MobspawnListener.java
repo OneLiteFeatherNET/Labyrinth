@@ -34,11 +34,13 @@ public class MobspawnListener implements Listener {
      */
     @EventHandler
     public void onMobSpawn(EntitySpawnEvent event) {
+
+        if(event.getEntity() instanceof Player) return;
+
         // We don't want Bats spawning everywhere below and above the actual labyrinth build, would be too many because of the lighting
         if (!(event.getEntity() instanceof Mob && !(event.getEntity() instanceof Bat))) {
             return;
         }
-        if(event.getEntity() instanceof Player) return;
 
         FileConfiguration config = labyrinth.getConfig();
         Location location = event.getEntity().getLocation();
