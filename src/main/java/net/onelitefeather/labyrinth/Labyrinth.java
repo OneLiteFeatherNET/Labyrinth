@@ -12,6 +12,7 @@ import org.incendo.cloud.annotations.AnnotationParser;
 import org.incendo.cloud.bukkit.CloudBukkitCapabilities;
 import org.incendo.cloud.execution.ExecutionCoordinator;
 import org.incendo.cloud.meta.CommandMeta;
+import org.incendo.cloud.paper.LegacyPaperCommandManager;
 import org.incendo.cloud.paper.PaperCommandManager;
 
 public class Labyrinth extends JavaPlugin {
@@ -25,7 +26,7 @@ public class Labyrinth extends JavaPlugin {
 
     public void registerCommands() {
 
-        var commandManager = PaperCommandManager.createNative(this, ExecutionCoordinator.simpleCoordinator());
+        var commandManager = LegacyPaperCommandManager.createNative(this, ExecutionCoordinator.simpleCoordinator());
 
         if (commandManager.hasCapability(CloudBukkitCapabilities.ASYNCHRONOUS_COMPLETION)) {
             commandManager.registerAsynchronousCompletions();
