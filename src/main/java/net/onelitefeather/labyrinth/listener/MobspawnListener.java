@@ -2,9 +2,11 @@ package net.onelitefeather.labyrinth.listener;
 
 import net.onelitefeather.labyrinth.Labyrinth;
 import net.onelitefeather.labyrinth.utils.Constants;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Bat;
 import org.bukkit.entity.Mob;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntitySpawnEvent;
@@ -32,6 +34,7 @@ public class MobspawnListener implements Listener {
      */
     @EventHandler
     public void onMobSpawn(EntitySpawnEvent event) {
+        // We don't want Bats spawning everywhere below and above the actual labyrinth build, would be too many because of the lighting
         if (!(event.getEntity() instanceof Mob && !(event.getEntity() instanceof Bat))) {
             return;
         }

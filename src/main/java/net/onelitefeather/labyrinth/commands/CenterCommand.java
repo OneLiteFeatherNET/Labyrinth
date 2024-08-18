@@ -18,6 +18,8 @@ public record CenterCommand(Labyrinth labyrinth) {
     @Permission("labyrinth.setup.center")
     public void centerCommand(Player player, @Argument(value = "zone", suggestions = "zones") String zone) {
         Location location = player.getLocation();
+
+        //This location Y is important to be set to 0 for a cylindric region, see SetRadiusCommand
         location.setY(0);
         if (ValidateZoneInput.validateZoneInput(player, zone, labyrinth)) {
             this.labyrinth.getConfig().set(Constants.CONFIG_ZONE_CENTER_PATH.formatted(zone), location);
