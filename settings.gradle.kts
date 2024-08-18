@@ -22,9 +22,9 @@ dependencyResolutionManagement {
             plugin("publishdata", "de.chojo.publishdata").versionRef("publishdata")
             plugin("shadow", "com.gradleup.shadow").versionRef("shadow")
 
-            library("cloudPaper", "org.incendo", "cloud-paper").version("2.0.0-beta.4")
-            library("cloudAnnotations", "org.incendo", "cloud-annotations").version("2.0.0-beta.4")
-            library("cloudBukkit", "org.incendo", "cloud-bukkit").version("2.0.0-beta.4")
+            library("cloudPaper", "org.incendo", "cloud-paper").version("2.0.0-beta.9")
+            library("cloudAnnotations", "org.incendo", "cloud-annotations").version("2.0.0-beta.9")
+            library("cloudBukkit", "org.incendo", "cloud-bukkit").version("2.0.0-beta.9")
             library("adventurePlatformBukkit", "net.kyori", "adventure-platform-bukkit").version("4.3.2")
 
             library("paper", "io.papermc.paper", "paper-api").versionRef("paper")
