@@ -25,18 +25,18 @@ dependencies {
 
 }
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 tasks {
     compileJava {
-        options.release.set(17)
+        options.release.set(21)
         options.encoding = "UTF-8"
     }
 
     runServer {
-        minecraftVersion("1.20.4")
+        minecraftVersion("1.20.6")
         jvmArgs("-Xmx2G", "-Dcom.mojang.eula.agree=true")
     }
 }
