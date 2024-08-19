@@ -2,9 +2,11 @@ package net.onelitefeather.labyrinth.listener;
 
 import net.onelitefeather.labyrinth.Labyrinth;
 import net.onelitefeather.labyrinth.utils.Constants;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Bat;
 import org.bukkit.entity.Mob;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntitySpawnEvent;
@@ -32,22 +34,32 @@ public class MobspawnListener implements Listener {
      */
     @EventHandler
     public void onMobSpawn(EntitySpawnEvent event) {
+
+        if(event.getEntity() instanceof Player) return;
+
+        // We don't want Bats spawning everywhere below and above the actual labyrinth build, would be too many because of the lighting
         if (!(event.getEntity() instanceof Mob && !(event.getEntity() instanceof Bat))) {
             return;
         }
 
         FileConfiguration config = labyrinth.getConfig();
+        Location location = event.getEntity().getLocation();
+        location.setY(0);
         var zoneSection = config.getConfigurationSection("zones");
         if (zoneSection == null) {
             return;
         }
         Set<String> zones = zoneSection.getKeys(false);
-        for (String zone : zones) {
+        for (var zone : zones) {
+            var radius = config.getDouble(Constants.CONFIG_ZONE_RADIUS_PATH.formatted(zone));
             var centerLocation = config.getLocation(Constants.CONFIG_ZONE_CENTER_PATH.formatted(zone));
+            if(centerLocation == null) return;
+            var isInZone = location.distance(centerLocation) < radius;
             var enabled = config.getBoolean(Constants.CONFIG_ZONE_MOBSPAWNING_PATH.formatted(zone));
-            if (enabled && centerLocation != null) {
+            if (!enabled && isInZone) {
                 event.setCancelled(true);
             }
         }
+
     }
 }

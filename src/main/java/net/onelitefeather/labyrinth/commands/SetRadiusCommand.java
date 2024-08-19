@@ -22,6 +22,11 @@ public record SetRadiusCommand(Labyrinth labyrinth) {
         if (ValidateZoneInput.validateZoneInput(player, zone, labyrinth)) {
             Location playerLabyrinthCenterLocation = player.getLocation();
 
+             // This playerLabyrinthCenterLocation needs to have the Y axis to be 0, in order to do a cylindric region.
+             // We only care about the x and z axis.
+
+            playerLabyrinthCenterLocation.setY(0);
+
             Location location = labyrinth.getConfig().getLocation(Constants.CONFIG_ZONE_CENTER_PATH.formatted(zone));
             if (location == null) return;
 
