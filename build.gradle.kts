@@ -27,17 +27,13 @@ dependencies {
 java {
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
 }
 
 tasks {
     compileJava {
-        java {
-            sourceCompatibility = JavaVersion.VERSION_21
-            targetCompatibility = JavaVersion.VERSION_21
-            toolchain {
-                languageVersion.set(JavaLanguageVersion.of(21))
-            }
-        }
         options.encoding = "UTF-8"
     }
 
