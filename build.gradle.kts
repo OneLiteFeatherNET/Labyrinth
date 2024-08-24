@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "net.onelitefeather"
-version = "0.0.1" // Change
+version = "0.1.0" // Change
 
 repositories {
     mavenCentral()
@@ -25,25 +25,27 @@ dependencies {
 
 }
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(21))
+    }
 }
 
 tasks {
     compileJava {
-        options.release.set(17)
         options.encoding = "UTF-8"
     }
 
     runServer {
-        minecraftVersion("1.20.4")
+        minecraftVersion("1.20.6")
         jvmArgs("-Xmx2G", "-Dcom.mojang.eula.agree=true")
     }
 }
 
 publishData {
     addBuildData()
-    useGitlabReposForProject("284", "https://onelitefeather.dev/")
+    useGitlabReposForProject("284", "https://gitlab.onelitefeather.dev/")
     publishTask("shadowJar")
 }
 
