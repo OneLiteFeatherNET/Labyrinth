@@ -13,7 +13,6 @@ import org.incendo.cloud.bukkit.CloudBukkitCapabilities;
 import org.incendo.cloud.execution.ExecutionCoordinator;
 import org.incendo.cloud.meta.CommandMeta;
 import org.incendo.cloud.paper.LegacyPaperCommandManager;
-import org.incendo.cloud.paper.PaperCommandManager;
 
 public class Labyrinth extends JavaPlugin {
 
