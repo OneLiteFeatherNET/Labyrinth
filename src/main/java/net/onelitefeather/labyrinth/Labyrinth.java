@@ -14,6 +14,8 @@ import org.incendo.cloud.execution.ExecutionCoordinator;
 import org.incendo.cloud.meta.CommandMeta;
 import org.incendo.cloud.paper.LegacyPaperCommandManager;
 
+import java.util.logging.Level;
+
 public class Labyrinth extends JavaPlugin {
 
     @Override
@@ -29,8 +31,8 @@ public class Labyrinth extends JavaPlugin {
 
         if (commandManager.hasCapability(CloudBukkitCapabilities.ASYNCHRONOUS_COMPLETION)) {
             commandManager.registerAsynchronousCompletions();
+            getLogger().log(Level.INFO, "Asynchronous tab completion enabled"); // Might be useful to know if it works
         }
-
         var annotationParser = new AnnotationParser<>(commandManager, CommandSender.class, parameters -> CommandMeta.empty());
 
         annotationParser.parse(new ZoneSuggestions(this));
