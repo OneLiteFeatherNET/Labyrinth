@@ -1,5 +1,6 @@
 package net.onelitefeather.labyrinth;
 
+import io.papermc.paper.command.brigadier.CommandSourceStack;
 import net.onelitefeather.labyrinth.commands.CenterCommand;
 import net.onelitefeather.labyrinth.commands.CreateZoneCommand;
 import net.onelitefeather.labyrinth.commands.ToggleMobSpawnCommand;
@@ -8,6 +9,7 @@ import net.onelitefeather.labyrinth.listener.MobspawnListener;
 import net.onelitefeather.labyrinth.commands.ZoneSuggestions;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.checkerframework.checker.units.qual.C;
 import org.incendo.cloud.annotations.AnnotationParser;
 import org.incendo.cloud.bukkit.CloudBukkitCapabilities;
 import org.incendo.cloud.execution.ExecutionCoordinator;
@@ -25,14 +27,19 @@ public class Labyrinth extends JavaPlugin {
     }
 
     public void registerCommands() {
+        PaperCommandManager<CommandSourceStack> commandManager = PaperCommandManager.builder()
+                .executionCoordinator(ExecutionCoordinator.simpleCoordinator())
+                .buildOnEnable(this);
 
-        var commandManager = LegacyPaperCommandManager.createNative(this, ExecutionCoordinator.simpleCoordinator());
+//        if (commandManager.hasCapability(CloudBukkitCapabilities.ASYNCHRONOUS_COMPLETION)) {
+//           commandManager.registerAsynchronousCompletions();
+//        }
 
-        if (commandManager.hasCapability(CloudBukkitCapabilities.ASYNCHRONOUS_COMPLETION)) {
-            commandManager.registerAsynchronousCompletions();
-        }
-
-        var annotationParser = new AnnotationParser<>(commandManager, CommandSender.class, parameters -> CommandMeta.empty());
+        AnnotationParser<CommandSourceStack> annotationParser = new AnnotationParser<>(
+                commandManager,
+                CommandSourceStack.class,
+                parameters -> CommandMeta.empty()
+        );
 
         annotationParser.parse(new ZoneSuggestions(this));
         annotationParser.parse(new CenterCommand(this));
