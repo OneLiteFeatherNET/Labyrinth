@@ -23,7 +23,7 @@ dependencyResolutionManagement {
             plugin("shadow", "com.gradleup.shadow").versionRef("shadow")
 
             library("cloudPaper", "org.incendo", "cloud-paper").version("2.0.0-beta.9")
-            library("cloudAnnotations", "org.incendo", "cloud-annotations").version("2.0.0-rc.2")
+            library("cloudAnnotations", "org.incendo", "cloud-annotations").version("2.0.0")
             library("cloudBukkit", "org.incendo", "cloud-bukkit").version("2.0.0-rc.2")
             library("adventurePlatformBukkit", "net.kyori", "adventure-platform-bukkit").version("4.3.2")
 
