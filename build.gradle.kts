@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "net.onelitefeather"
-version = "0.1.0" // Change
+version = "1.0.0"
 
 repositories {
     mavenCentral()
