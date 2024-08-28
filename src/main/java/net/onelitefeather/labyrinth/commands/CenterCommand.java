@@ -6,6 +6,7 @@ import net.onelitefeather.labyrinth.Labyrinth;
 import net.onelitefeather.labyrinth.utils.Constants;
 import net.onelitefeather.labyrinth.utils.ValidateZoneInput;
 import org.bukkit.Location;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.incendo.cloud.annotations.Argument;
 import org.incendo.cloud.annotations.Command;
@@ -18,7 +19,6 @@ public record CenterCommand(Labyrinth labyrinth) {
     @Permission("labyrinth.setup.center")
     public void centerCommand(Player player, @Argument(value = "zone", suggestions = "zones") String zone) {
         Location location = player.getLocation();
-
         /**
          * This location Y is important to be set to 0 for a cylindric region, see {@link SetRadiusCommand}
         * */

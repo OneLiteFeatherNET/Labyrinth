@@ -23,7 +23,10 @@ public class Labyrinth extends JavaPlugin {
     }
 
     public void registerCommands() {
-        PaperCommandManager<CommandSourceStack> commandManager = PaperCommandManager.builder()
+        // CommandSourceStack replaces CommandSender on LegacyPaperCommandManager here. It is built on the Labyrinth
+        // onEnable()
+        PaperCommandManager<CommandSourceStack> commandManager = PaperCommandManager
+                .builder(PaperSimpleSenderMapper.simpleSenderMapper())
                 .executionCoordinator(ExecutionCoordinator.asyncCoordinator())
                 .buildOnEnable(this);
 
