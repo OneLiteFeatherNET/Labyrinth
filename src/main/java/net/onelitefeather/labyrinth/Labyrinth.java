@@ -2,6 +2,7 @@ package net.onelitefeather.labyrinth;
 
 import net.onelitefeather.labyrinth.commands.CenterCommand;
 import net.onelitefeather.labyrinth.commands.CreateZoneCommand;
+import net.onelitefeather.labyrinth.commands.DeleteZoneCommand;
 import net.onelitefeather.labyrinth.commands.ToggleMobSpawnCommand;
 import net.onelitefeather.labyrinth.commands.SetRadiusCommand;
 import net.onelitefeather.labyrinth.listener.MobspawnListener;
@@ -39,6 +40,7 @@ public class Labyrinth extends JavaPlugin {
         annotationParser.parse(new SetRadiusCommand(this));
         annotationParser.parse(new ToggleMobSpawnCommand(this));
         annotationParser.parse(new CreateZoneCommand(this));
+        annotationParser.parse(new DeleteZoneCommand(this));
     }
 
     public void registerListeners() {
