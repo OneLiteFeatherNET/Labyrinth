@@ -5,13 +5,13 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.jetbrains.annotations.NotNull;
 
-public class RegionEnterEvent extends Event {
+public class ZoneEnterEvent extends Event {
 
     private static final HandlerList HANDLER_LIST = new HandlerList();
 
     private final Player player;
 
-    public RegionEnterEvent(Player player) {
+    public ZoneEnterEvent(Player player) {
         this.player = player;
     }
 
@@ -24,8 +24,8 @@ public class RegionEnterEvent extends Event {
         return HANDLER_LIST;
     }
 
-    public static RegionEnterEvent create(Player player) {
-        return new RegionEnterEvent(player);
+    public static ZoneEnterEvent create(Player player) {
+        return new ZoneEnterEvent(player);
     }
 
 

@@ -6,7 +6,7 @@ import net.onelitefeather.labyrinth.commands.ToggleMobSpawnCommand;
 import net.onelitefeather.labyrinth.commands.SetRadiusCommand;
 import net.onelitefeather.labyrinth.listener.MobspawnListener;
 import net.onelitefeather.labyrinth.commands.ZoneSuggestions;
-import net.onelitefeather.labyrinth.listener.PlayerEnterListener;
+import net.onelitefeather.labyrinth.listener.PlayerEnterZoneListener;
 import net.onelitefeather.labyrinth.utils.Constants;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
@@ -47,7 +47,7 @@ public class Labyrinth extends JavaPlugin {
 
     public void registerListeners() {
         getServer().getPluginManager().registerEvents(new MobspawnListener(this), this);
-        getServer().getPluginManager().registerEvents(new PlayerEnterListener(this), this);
+        getServer().getPluginManager().registerEvents(new PlayerEnterZoneListener(this), this);
     }
 
     public Boolean isInZone(Location location) {
