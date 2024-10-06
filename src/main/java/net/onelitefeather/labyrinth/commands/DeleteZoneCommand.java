@@ -9,8 +9,6 @@ import org.incendo.cloud.annotations.Argument;
 import org.incendo.cloud.annotations.Command;
 import org.incendo.cloud.annotations.Permission;
 
-import java.util.Objects;
-
 
 @Command("labyrinth")
 public record DeleteZoneCommand(Labyrinth labyrinth) {
