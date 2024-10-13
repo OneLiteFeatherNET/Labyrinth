@@ -4,9 +4,7 @@ import net.onelitefeather.labyrinth.Labyrinth;
 import net.onelitefeather.labyrinth.utils.Constants;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Animals;
 import org.bukkit.entity.Bat;
-import org.bukkit.entity.Mob;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -53,11 +51,12 @@ public class MobspawnListener implements Listener {
             var centerLocation = config.getLocation(Constants.CONFIG_ZONE_CENTER_PATH.formatted(zone));
             if (centerLocation == null) return;
             var isInZone = location.distance(centerLocation) < radius;
+            if (!isInZone) continue;
             var disabled = !(config.getBoolean(Constants.CONFIG_ZONE_MOBSPAWNING_PATH.formatted(zone)));
-            if (disabled && isInZone) {
+            if (disabled) {
                 // We don't want Bats spawning everywhere below and above the actual labyrinth build, would be too many because of the lighting
-                if (!(event.getEntity() instanceof Monster) && !(event.getEntity() instanceof Bat)) {
-                    return;
+                if (!(event.getEntity() instanceof Monster || event.getEntity() instanceof Bat)) {
+                    continue;
                 }
                 event.setCancelled(true);
             }
