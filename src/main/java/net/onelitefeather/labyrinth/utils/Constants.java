@@ -2,6 +2,7 @@ package net.onelitefeather.labyrinth.utils;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.regex.Pattern;
 
@@ -13,6 +14,7 @@ public final class Constants {
     public static final Component PREFIX = MiniMessage.miniMessage().deserialize("<color:#aaaaaa>[<gradient:#ff8800:#947e72:#ebc8b5>Labyrinth</gradient>]</color> ");
     public static final String SET_RADIUS_MESSAGE = "<prefix><color:#aaaaaa>The radius for zone <zone> was <green>successfully</green> set!";
     public static final String CREATE_ZONE_MESSAGE_SUCCESS = "<prefix><color:#aaaaaa>The zone <zone> was <green>successfully</green> created!";
+    public static final String DELETE_ZONE_MESSAGE_SUCCESS = "<prefix><color:#aaaaaa>The zone was <green>successfully</green> deleted!";
     public static final String CENTER_COMMAND_MESSAGE_SUCCESS = "<prefix><color:#aaaaaa>The center was <green>successfully</green> set for zone <zone>!";
     public static final String TOGGLE_MOB_SPAWN_COMMAND_MESSAGE_SUCCESS = "<prefix><color:#aaaaaa>Mobspawning was <green>successfully</green> set for zone <zone> to <green><value></green>!";
     public static final String ZONE_INVALID_MESSAGE = "<prefix><color:#aaaaaa>The zone name needs to contain only <red>alphanumeric characters</red> or might <red>not be created yet</red>!";

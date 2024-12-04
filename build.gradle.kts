@@ -101,6 +101,9 @@ paper {
         register("labyrinth.setup.createzone") {
             description = "This permission is needed to create a new zone entry."
         }
+        register("labyrinth.setup.deletezone") {
+            description = "This permission is needed to delete the zone."
+        }
 
     }
 }
