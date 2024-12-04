@@ -25,6 +25,9 @@ Only spawn in caves or when Minecraft thinks we are in a cave, so we don't want 
 ```labyrinth.setup.createzone``` 
 - This permission is needed to create a new zone entry.
 ---
+```labyrinth.setup.deletezone```
+- This permission is needed to delete a zone
+---
 ### Features (zone needs to be created in this order)
 - Create a zone
 ```/labyrinth create <zone>```
@@ -37,5 +40,10 @@ Only spawn in caves or when Minecraft thinks we are in a cave, so we don't want 
 ---
 - Toggle mobspawning of a zone
 ```/labyrinth toggle <zone>```
+---
+### Get rid of zones:
+- Delete a zone
+  ```/labyrinth delete <zone>```
+---
 
 
