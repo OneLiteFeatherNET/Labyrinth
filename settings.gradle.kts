@@ -11,7 +11,7 @@ dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
 
-            version("paper", "1.20.6-R0.1-SNAPSHOT")
+            version("paper", "1.21.1-R0.1-SNAPSHOT")
             version("plugin.yml", "0.6.0")
             version("run-paper", "2.3.0")
             version("publishdata", "1.4.0")
@@ -23,7 +23,7 @@ dependencyResolutionManagement {
             plugin("shadow", "com.gradleup.shadow").versionRef("shadow")
 
             library("cloudPaper", "org.incendo", "cloud-paper").version("2.0.0-beta.9")
-            library("cloudAnnotations", "org.incendo", "cloud-annotations").version("2.0.0-rc.2")
+            library("cloudAnnotations", "org.incendo", "cloud-annotations").version("2.0.0")
             library("cloudBukkit", "org.incendo", "cloud-bukkit").version("2.0.0-rc.2")
             library("adventurePlatformBukkit", "net.kyori", "adventure-platform-bukkit").version("4.3.2")
 
