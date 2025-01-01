@@ -22,7 +22,7 @@ dependencyResolutionManagement {
             plugin("publishdata", "de.chojo.publishdata").versionRef("publishdata")
             plugin("shadow", "com.gradleup.shadow").versionRef("shadow")
 
-            library("cloudPaper", "org.incendo", "cloud-paper").version("2.0.0-beta.9")
+            library("cloudPaper", "org.incendo", "cloud-paper").version("2.0.0-SNAPSHOT")
             library("cloudAnnotations", "org.incendo", "cloud-annotations").version("2.0.0-rc.2")
             library("cloudBukkit", "org.incendo", "cloud-bukkit").version("2.0.0-rc.2")
             library("adventurePlatformBukkit", "net.kyori", "adventure-platform-bukkit").version("4.3.2")
