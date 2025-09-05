@@ -1,12 +1,5 @@
 rootProject.name = "Labyrinth"
 
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-        maven("https://eldonexus.de/repository/maven-public/")
-    }
-}
-
 dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
@@ -30,5 +23,25 @@ dependencyResolutionManagement {
             library("paper", "io.papermc.paper", "paper-api").versionRef("paper")
 
         }
+    }
+    repositories {
+        mavenCentral()
+        maven("https://central.sonatype.com/repository/maven-snapshots/")
+        maven {
+            name = "OneLiteFeatherRepository"
+            url = uri("https://repo.onelitefeather.dev/onelitefeather")
+            if (System.getenv("CI") != null) {
+                credentials {
+                    username = System.getenv("ONELITEFEATHER_MAVEN_USERNAME")
+                    password = System.getenv("ONELITEFEATHER_MAVEN_PASSWORD")
+                }
+            } else {
+                credentials(PasswordCredentials::class)
+                authentication {
+                    create<BasicAuthentication>("basic")
+                }
+            }
+        }
+        maven("https://repo.papermc.io/repository/maven-public/")
     }
 }

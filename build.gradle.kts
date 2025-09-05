@@ -3,17 +3,8 @@ plugins {
     alias(libs.plugins.run.paper)
     alias(libs.plugins.plugin.yml)
     alias(libs.plugins.shadow)
-    alias(libs.plugins.publishdata)
 
     `maven-publish`
-}
-
-group = "net.onelitefeather"
-version = "1.0.0"
-
-repositories {
-    mavenCentral()
-    maven("https://repo.papermc.io/repository/maven-public/")
 }
 
 dependencies {
@@ -43,33 +34,51 @@ tasks {
     }
 }
 
-publishData {
-    addBuildData()
-    useGitlabReposForProject("284", "https://gitlab.onelitefeather.dev/")
-    publishTask("shadowJar")
-}
-
 publishing {
     publications.create<MavenPublication>("maven") {
-        // configure the publication as defined previously.
-        publishData.configurePublication(this)
-        version = publishData.getVersion(false)
+        artifact(project.tasks.getByName("shadowJar"))
+        version = rootProject.version as String
+        artifactId = "labyrinth"
+        groupId = rootProject.group as String
+        pom {
+            name = "Labyrinth"
+            description = "Labyrinth zone protection for OneLiteFeather"
+            url = "https://github.com/OneLiteFeatherNET/labyrinth"
+            licenses {
+                license {
+                    name = "The Apache License, Version 2.0"
+                    url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                }
+            }
+            developers {
+                developer {
+                    id = "themeinerlp"
+                    name = "Phillipp Glanz"
+                    email = "p.glanz@madfix.me"
+                }
+            }
+            scm {
+                connection = "scm:git:git://github.com:OneLiteFeatherNET/Labyrinth.git"
+                developerConnection = "scm:git:ssh://git@github.com:OneLiteFeatherNET/Labyrinth.git"
+                url = "https://github.com/OneLiteFeatherNET/labyrinth"
+            }
+        }
     }
 
     repositories {
         maven {
-            credentials(HttpHeaderCredentials::class) {
-                name = "Job-Token"
-                value = System.getenv("CI_JOB_TOKEN")
-            }
             authentication {
-                create("header", HttpHeaderAuthentication::class)
+                credentials(PasswordCredentials::class) {
+                    // Those credentials need to be set under "Settings -> Secrets -> Actions" in your repository
+                    username = System.getenv("ONELITEFEATHER_MAVEN_USERNAME")
+                    password = System.getenv("ONELITEFEATHER_MAVEN_PASSWORD")
+                }
             }
 
-
-            name = "Gitlab"
-            // Get the detected repository from the publish data
-            url = uri(publishData.getRepository())
+            name = "OneLiteFeatherRepository"
+            val releasesRepoUrl = uri("https://repo.onelitefeather.dev/onelitefeather-releases")
+            val snapshotsRepoUrl = uri("https://repo.onelitefeather.dev/onelitefeather-snapshots")
+            url = if (version.toString().contains("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
         }
     }
 }
@@ -78,7 +87,6 @@ paper {
 
     main = "net.onelitefeather.labyrinth.Labyrinth"
     name = "Labyrinth"
-    version = publishData.getVersion(true)
     description = "This is a prototype plugin for the Labyrinth of our Survival Server"
     website = "https://discord.onelitefeather.net"
     author = "OneLiteFeather"
