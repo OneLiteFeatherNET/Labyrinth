@@ -32,6 +32,11 @@ tasks {
         minecraftVersion("1.20.6")
         jvmArgs("-Xmx2G", "-Dcom.mojang.eula.agree=true")
     }
+
+    shadowJar {
+        archiveClassifier.set("")
+        archiveFileName.set("labyrinth.jar")
+    }
 }
 
 publishing {
