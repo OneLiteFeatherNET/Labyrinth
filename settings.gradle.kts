@@ -6,7 +6,7 @@ dependencyResolutionManagement {
 
             version("paper", "1.20.6-R0.1-SNAPSHOT")
             version("plugin.yml", "0.6.0")
-            version("run-paper", "2.3.1")
+            version("run-paper", "3.0.0")
             version("publishdata", "1.4.0")
             version("shadow", "9.1.0")
 
