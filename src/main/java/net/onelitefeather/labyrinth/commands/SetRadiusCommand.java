@@ -3,8 +3,8 @@ package net.onelitefeather.labyrinth.commands;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.onelitefeather.labyrinth.Labyrinth;
+import net.onelitefeather.labyrinth.service.api.ValidationService;
 import net.onelitefeather.labyrinth.utils.Constants;
-import net.onelitefeather.labyrinth.utils.ValidateZoneInput;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.incendo.cloud.annotations.Argument;
@@ -14,12 +14,12 @@ import org.jetbrains.annotations.NotNull;
 
 
 @Command("labyrinth")
-public record SetRadiusCommand(Labyrinth labyrinth) {
+public record SetRadiusCommand(Labyrinth labyrinth, ValidationService validationService) {
 
     @Command("setradius <zone>")
     @Permission("labyrinth.setup.setradius")
     public void setRadius(@NotNull Player player, @Argument(value = "zone", suggestions = "zones") String zone) {
-        if (ValidateZoneInput.validateZoneInput(player, zone, labyrinth)) {
+        if (validationService.validateZoneInput(player, zone)) {
             Location playerLabyrinthCenterLocation = player.getLocation();
 
              // This playerLabyrinthCenterLocation needs to have the Y axis to be 0, in order to do a cylindric region.

@@ -3,8 +3,8 @@ package net.onelitefeather.labyrinth.commands;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.onelitefeather.labyrinth.Labyrinth;
+import net.onelitefeather.labyrinth.service.api.ValidationService;
 import net.onelitefeather.labyrinth.utils.Constants;
-import net.onelitefeather.labyrinth.utils.ValidateZoneInput;
 import org.bukkit.entity.Player;
 import org.incendo.cloud.annotations.Argument;
 import org.incendo.cloud.annotations.Command;
@@ -12,12 +12,12 @@ import org.incendo.cloud.annotations.Permission;
 import org.jetbrains.annotations.NotNull;
 
 @Command("labyrinth")
-public record ToggleMobSpawnCommand(Labyrinth labyrinth) {
+public record ToggleMobSpawnCommand(Labyrinth labyrinth, ValidationService validationService) {
 
     @Command("toggle <zone>")
     @Permission("labyrinth.toggle.mobspawn")
     public void toggleMobSpawn(@NotNull Player player, @Argument(value = "zone", suggestions = "zones") String zone) {
-        if (ValidateZoneInput.validateZoneInput(player, zone, labyrinth)) {
+        if (validationService.validateZoneInput(player, zone)) {
             boolean mobSpawning = !labyrinth.getConfig().getBoolean(Constants.CONFIG_ZONE_MOBSPAWNING_PATH.formatted(zone), false);
             labyrinth.getConfig().set(Constants.CONFIG_ZONE_MOBSPAWNING_PATH.formatted(zone), mobSpawning);
             labyrinth.saveConfig();
