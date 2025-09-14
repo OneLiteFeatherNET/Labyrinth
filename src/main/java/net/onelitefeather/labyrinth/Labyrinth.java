@@ -7,6 +7,8 @@ import net.onelitefeather.labyrinth.commands.ToggleMobSpawnCommand;
 import net.onelitefeather.labyrinth.commands.SetRadiusCommand;
 import net.onelitefeather.labyrinth.listener.MobspawnListener;
 import net.onelitefeather.labyrinth.commands.ZoneSuggestions;
+import net.onelitefeather.labyrinth.service.api.ValidationService;
+import net.onelitefeather.labyrinth.service.impl.ValidationServiceImpl;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.incendo.cloud.annotations.AnnotationParser;
@@ -16,6 +18,13 @@ import org.incendo.cloud.meta.CommandMeta;
 import org.incendo.cloud.paper.LegacyPaperCommandManager;
 
 public class Labyrinth extends JavaPlugin {
+
+    private ValidationService validationService;
+
+    @Override
+    public void onLoad() {
+        this.validationService = new ValidationServiceImpl(this);
+    }
 
     @Override
     public void onEnable() {
@@ -35,9 +44,9 @@ public class Labyrinth extends JavaPlugin {
         var annotationParser = new AnnotationParser<>(commandManager, CommandSender.class, parameters -> CommandMeta.empty());
 
         annotationParser.parse(new ZoneSuggestions(this));
-        annotationParser.parse(new CenterCommand(this));
-        annotationParser.parse(new SetRadiusCommand(this));
-        annotationParser.parse(new ToggleMobSpawnCommand(this));
+        annotationParser.parse(new CenterCommand(this, this.validationService));
+        annotationParser.parse(new SetRadiusCommand(this, this.validationService));
+        annotationParser.parse(new ToggleMobSpawnCommand(this, this.validationService));
         annotationParser.parse(new CreateZoneCommand(this));
         annotationParser.parse(new DeleteZoneCommand(this));
     }

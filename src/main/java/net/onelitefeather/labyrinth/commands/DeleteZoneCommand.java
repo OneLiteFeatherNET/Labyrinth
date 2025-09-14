@@ -15,7 +15,7 @@ public record DeleteZoneCommand(Labyrinth labyrinth) {
 
     @Command("delete <zone>")
     @Permission("labyrinth.setup.deletezone")
-    public void createZone(Player player, @Argument(value = "zone", suggestions = "zones") String zone) {
+    public void deleteZone(Player player, @Argument(value = "zone", suggestions = "zones") String zone) {
         var zoneString = Constants.CONFIG_ZONE_PATH.formatted(zone);
         if(labyrinth.getConfig().contains(zoneString)) {
             labyrinth.getConfig().set(zoneString, null);
