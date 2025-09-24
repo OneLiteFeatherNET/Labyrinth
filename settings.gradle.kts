@@ -8,7 +8,7 @@ dependencyResolutionManagement {
             version("plugin.yml", "0.6.0")
             version("run-paper", "3.0.0")
             version("publishdata", "1.4.0")
-            version("shadow", "9.1.0")
+            version("shadow", "9.2.1")
 
             plugin("plugin.yml", "net.minecrell.plugin-yml.paper").versionRef("plugin.yml")
             plugin("run.paper", "xyz.jpenilla.run-paper").versionRef("run-paper")
