@@ -14,6 +14,11 @@ dependencies {
     implementation(libs.adventurePlatformBukkit)
     implementation(libs.paper)
 
+    testImplementation(platform(libs.junit.bom))
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.platform.launcher)
+    testRuntimeOnly(libs.junit.jupiter.engine)
+    testImplementation(libs.mockbukkit)
 }
 java {
     sourceCompatibility = JavaVersion.VERSION_21
@@ -36,6 +41,14 @@ tasks {
     shadowJar {
         archiveClassifier.set("")
         archiveFileName.set("labyrinth.jar")
+    }
+
+    test {
+        useJUnitPlatform()
+        jvmArgs("-Dlabyrinth.insideTest=true")
+        testLogging {
+            events("passed", "skipped", "failed")
+        }
     }
 }
 
