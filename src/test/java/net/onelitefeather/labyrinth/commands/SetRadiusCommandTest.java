@@ -14,13 +14,12 @@ import org.mockbukkit.mockbukkit.world.WorldMock;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SetRadiusCommandTest extends CommandPluginTestBase{
+class SetRadiusCommandTest extends CommandPluginTestBase {
 
     private SetRadiusCommand command;
     private SetRadiusCommandTest.MockValidationService validationService;
 
-    public static class MockValidationService implements ValidationService
-    {
+    public static class MockValidationService implements ValidationService {
         private boolean isValid;
 
         @Override
@@ -39,16 +38,14 @@ class SetRadiusCommandTest extends CommandPluginTestBase{
 
     @Override
     @BeforeEach
-    void setUp()
-    {
+    void setUp() {
         super.setUp();
         validationService = new SetRadiusCommandTest.MockValidationService();
         command = new SetRadiusCommand(plugin, validationService);
     }
 
     @Test
-    void testValidationWrong()
-    {
+    void testValidationWrong() {
         var player = server.addPlayer();
         var zoneName = "Test";
         var expectedMessage = MiniMessage.miniMessage().deserialize(Constants.ZONE_INVALID_MESSAGE,
@@ -59,8 +56,7 @@ class SetRadiusCommandTest extends CommandPluginTestBase{
     }
 
     @Test
-    void testNoLocationSet()
-    {
+    void testNoLocationSet() {
         var player = server.addPlayer();
         var zoneName = "Test";
         validationService.setValid(true);
@@ -69,8 +65,7 @@ class SetRadiusCommandTest extends CommandPluginTestBase{
     }
 
     @Test
-    void testRadiusSet()
-    {
+    void testRadiusSet() {
         var player = server.addPlayer();
         var zoneName = "Test";
         var expectedMessage = MiniMessage.miniMessage().deserialize(Constants.SET_RADIUS_MESSAGE,
@@ -84,11 +79,11 @@ class SetRadiusCommandTest extends CommandPluginTestBase{
         plugin.getConfig().set(Constants.CONFIG_ZONE_CENTER_PATH.formatted(zoneName), centerLocation);
         player.setLocation(playerLocation);
 
-        command.setRadius(player,zoneName);
+        command.setRadius(player, zoneName);
 
         playerLocation.setY(0);
         var expectedDistance = centerLocation.distance(playerLocation);
-        assertEquals(expectedDistance,  plugin.getConfig().getDouble(Constants.CONFIG_ZONE_RADIUS_PATH.formatted(zoneName)));
+        assertEquals(expectedDistance, plugin.getConfig().getDouble(Constants.CONFIG_ZONE_RADIUS_PATH.formatted(zoneName)));
         assertEquals(expectedMessage, player.nextComponentMessage());
     }
 

@@ -24,15 +24,13 @@ public abstract class CommandPluginTestBase {
     }
 
     @BeforeEach
-    void setUp()
-    {
+    void setUp() {
         server = MockBukkit.mock();
         plugin = MockBukkit.load(CommandPluginTestBase.MockLabyrinthPlugin.class);
     }
 
     @AfterEach
-    void tearDown()
-    {
+    void tearDown() {
         MockBukkit.unmock();
     }
 }

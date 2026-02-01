@@ -20,8 +20,7 @@ class ValidationServiceImplTest {
     private Labyrinth plugin;
     private ValidationServiceImpl validationService;
 
-    public static class MockLabyrinthPlugin extends Labyrinth
-    {
+    public static class MockLabyrinthPlugin extends Labyrinth {
         @Override
         public void onEnable() {
 
@@ -34,22 +33,19 @@ class ValidationServiceImplTest {
     }
 
     @BeforeEach
-    void setUp()
-    {
+    void setUp() {
         server = MockBukkit.mock();
         plugin = MockBukkit.load(ValidationServiceImplTest.MockLabyrinthPlugin.class);
         validationService = new ValidationServiceImpl(plugin);
     }
 
     @AfterEach
-    void tearDown()
-    {
+    void tearDown() {
         MockBukkit.unmock();
     }
 
     @Test
-    void testZoneNotFound()
-    {
+    void testZoneNotFound() {
         var player = server.addPlayer();
         var zoneName = "Test";
         var expectedMessage = MiniMessage.miniMessage().deserialize(
@@ -60,8 +56,7 @@ class ValidationServiceImplTest {
     }
 
     @Test
-    void testZoneValid()
-    {
+    void testZoneValid() {
         var player = server.addPlayer();
         var zoneName = "Test";
         plugin.getConfig().createSection(Constants.CONFIG_ZONE_PATH.formatted(zoneName));
@@ -70,8 +65,7 @@ class ValidationServiceImplTest {
     }
 
     @Test
-    void testZoneNameNotMatchesPattern()
-    {
+    void testZoneNameNotMatchesPattern() {
         var player = server.addPlayer();
         var zoneName = "Test%";
         var expectedMessage = Component.text("Only characters without symbols are allowed");

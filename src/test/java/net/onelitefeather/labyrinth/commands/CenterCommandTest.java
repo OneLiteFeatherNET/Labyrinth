@@ -16,8 +16,7 @@ class CenterCommandTest extends CommandPluginTestBase {
     private CenterCommand command;
     private MockValidationService validationService;
 
-    public static class MockValidationService implements ValidationService
-    {
+    public static class MockValidationService implements ValidationService {
         private boolean isValid;
 
         @Override
@@ -36,8 +35,7 @@ class CenterCommandTest extends CommandPluginTestBase {
 
     @Override
     @BeforeEach
-    void setUp()
-    {
+    void setUp() {
         super.setUp();
         validationService = new MockValidationService();
         command = new CenterCommand(plugin, validationService);
@@ -46,8 +44,7 @@ class CenterCommandTest extends CommandPluginTestBase {
 
     @DisplayName("Test if the player location is not zero")
     @Test
-    void testIsYLocationFromPlayerNotZero()
-    {
+    void testIsYLocationFromPlayerNotZero() {
         var player = server.addPlayer();
         var location = new Location(new WorldMock(Material.GRASS_BLOCK, 64), 120, 64, 120);
         player.setLocation(location);
@@ -57,8 +54,7 @@ class CenterCommandTest extends CommandPluginTestBase {
     }
 
     @Test
-    void testValidationWrong()
-    {
+    void testValidationWrong() {
         var player = server.addPlayer();
         var location = new Location(new WorldMock(Material.GRASS_BLOCK, 64), 120, 64, 120);
         player.setLocation(location);
@@ -74,8 +70,7 @@ class CenterCommandTest extends CommandPluginTestBase {
     }
 
     @Test
-    void testValidationTrue()
-    {
+    void testValidationTrue() {
         var player = server.addPlayer();
         var location = new Location(new WorldMock(Material.GRASS_BLOCK, 64), 120, 64, 120);
         var zoneName = "Test";

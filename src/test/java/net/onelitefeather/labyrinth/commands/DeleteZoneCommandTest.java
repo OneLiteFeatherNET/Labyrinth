@@ -8,26 +8,24 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DeleteZoneCommandTest extends CommandPluginTestBase{
+class DeleteZoneCommandTest extends CommandPluginTestBase {
 
     private DeleteZoneCommand command;
 
     @Override
     @BeforeEach
-    void setUp()
-    {
+    void setUp() {
         super.setUp();
         command = new DeleteZoneCommand(plugin);
     }
 
     @Test
-    void testZoneDeleted()
-    {
+    void testZoneDeleted() {
         var player = server.addPlayer();
         var zoneName = "Test";
         var expectedMessage = MiniMessage.miniMessage().deserialize(Constants.DELETE_ZONE_MESSAGE_SUCCESS,
-            Placeholder.unparsed("zone", zoneName),
-            Placeholder.component("prefix", Constants.PREFIX));
+                Placeholder.unparsed("zone", zoneName),
+                Placeholder.component("prefix", Constants.PREFIX));
         var configSectionName = Constants.CONFIG_ZONE_PATH.formatted(zoneName);
         plugin.getConfig().createSection(configSectionName);
         command.deleteZone(player, zoneName);
@@ -36,8 +34,7 @@ class DeleteZoneCommandTest extends CommandPluginTestBase{
     }
 
     @Test
-    void testZoneNotDeleted()
-    {
+    void testZoneNotDeleted() {
         var player = server.addPlayer();
         var zoneName = "Test";
         var expectedMessage = MiniMessage.miniMessage().deserialize(Constants.ZONE_INVALID_MESSAGE,

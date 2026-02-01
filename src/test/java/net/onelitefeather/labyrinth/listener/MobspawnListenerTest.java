@@ -38,22 +38,19 @@ class MobspawnListenerTest {
     }
 
     @BeforeEach
-    void setUp()
-    {
+    void setUp() {
         server = MockBukkit.mock();
         plugin = MockBukkit.load(MobspawnListenerTest.MockLabyrinthPlugin.class);
         listener = new MobspawnListener(this.plugin);
     }
 
     @AfterEach
-    void tearDown()
-    {
+    void tearDown() {
         MockBukkit.unmock();
     }
 
     @Test
-    void testNoZone()
-    {
+    void testNoZone() {
         this.server.getPluginManager().registerEvents(listener, this.plugin);
         var zombie = new ZombieMock(this.server, UUID.randomUUID());
         zombie.setLocation(new Location(new WorldMock(Material.GRASS_BLOCK, 64), 120, 64, 120));
@@ -63,8 +60,7 @@ class MobspawnListenerTest {
     }
 
     @Test
-    void testNoCenterLocation()
-    {
+    void testNoCenterLocation() {
         this.server.getPluginManager().registerEvents(listener, this.plugin);
         var zombie = new ZombieMock(this.server, UUID.randomUUID());
         zombie.setLocation(new Location(new WorldMock(Material.GRASS_BLOCK, 64), 120, 64, 120));
@@ -77,8 +73,7 @@ class MobspawnListenerTest {
     }
 
     @Test
-    void testNotInRadius()
-    {
+    void testNotInRadius() {
         this.server.getPluginManager().registerEvents(listener, this.plugin);
 
         var world = new WorldMock(Material.GRASS_BLOCK, 64);
@@ -98,8 +93,7 @@ class MobspawnListenerTest {
     }
 
     @Test
-    void testNotDisabled()
-    {
+    void testNotDisabled() {
         this.server.getPluginManager().registerEvents(listener, this.plugin);
 
         var world = new WorldMock(Material.GRASS_BLOCK, 64);
@@ -120,8 +114,7 @@ class MobspawnListenerTest {
     }
 
     @Test
-    void testNoSpawning()
-    {
+    void testNoSpawning() {
         this.server.getPluginManager().registerEvents(listener, this.plugin);
 
         var world = new WorldMock(Material.GRASS_BLOCK, 64);
@@ -142,8 +135,7 @@ class MobspawnListenerTest {
     }
 
     @Test
-    void testNoMonster()
-    {
+    void testNoMonster() {
         this.server.getPluginManager().registerEvents(listener, this.plugin);
 
         var world = new WorldMock(Material.GRASS_BLOCK, 64);

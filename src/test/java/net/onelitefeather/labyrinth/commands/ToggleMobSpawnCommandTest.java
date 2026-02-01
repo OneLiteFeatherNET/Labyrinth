@@ -11,13 +11,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ToggleMobSpawnCommandTest extends CommandPluginTestBase{
+class ToggleMobSpawnCommandTest extends CommandPluginTestBase {
 
     private ToggleMobSpawnCommand command;
     private ToggleMobSpawnCommandTest.MockValidationService validationService;
 
-    public static class MockValidationService implements ValidationService
-    {
+    public static class MockValidationService implements ValidationService {
         private boolean isValid;
 
         @Override
@@ -36,16 +35,14 @@ class ToggleMobSpawnCommandTest extends CommandPluginTestBase{
 
     @Override
     @BeforeEach
-    void setUp()
-    {
+    void setUp() {
         super.setUp();
         validationService = new ToggleMobSpawnCommandTest.MockValidationService();
         command = new ToggleMobSpawnCommand(plugin, validationService);
     }
 
     @Test
-    void testZoneNotValid()
-    {
+    void testZoneNotValid() {
         var player = server.addPlayer();
         var expectedMessage = MiniMessage.miniMessage().deserialize(Constants.ZONE_INVALID_MESSAGE,
                 Placeholder.component("prefix", Constants.PREFIX));
@@ -57,8 +54,7 @@ class ToggleMobSpawnCommandTest extends CommandPluginTestBase{
     }
 
     @Test
-    void testActivateMobSpawningWithNotSetInConfig()
-    {
+    void testActivateMobSpawningWithNotSetInConfig() {
         var player = server.addPlayer();
         var zoneName = "Test";
         var expectedMessage = MiniMessage.miniMessage().deserialize(Constants.TOGGLE_MOB_SPAWN_COMMAND_MESSAGE_SUCCESS,
@@ -73,8 +69,7 @@ class ToggleMobSpawnCommandTest extends CommandPluginTestBase{
     }
 
     @Test
-    void testMobSpawningChangedToTrue()
-    {
+    void testMobSpawningChangedToTrue() {
         var player = server.addPlayer();
         var zoneName = "Test";
         var expectedMessage = MiniMessage.miniMessage().deserialize(Constants.TOGGLE_MOB_SPAWN_COMMAND_MESSAGE_SUCCESS,
@@ -90,8 +85,7 @@ class ToggleMobSpawnCommandTest extends CommandPluginTestBase{
     }
 
     @Test
-    void testMobSpawningChangedToFalse()
-    {
+    void testMobSpawningChangedToFalse() {
         var player = server.addPlayer();
         var zoneName = "Test";
         var expectedMessage = MiniMessage.miniMessage().deserialize(Constants.TOGGLE_MOB_SPAWN_COMMAND_MESSAGE_SUCCESS,

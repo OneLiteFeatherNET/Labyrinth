@@ -14,19 +14,17 @@ class CreateZoneCommandTest extends CommandPluginTestBase {
 
     @Override
     @BeforeEach
-    void setUp()
-    {
+    void setUp() {
         super.setUp();
         command = new CreateZoneCommand(plugin);
     }
 
     @Test
-    void testZoneNameNotMatchesPattern()
-    {
+    void testZoneNameNotMatchesPattern() {
         var player = server.addPlayer();
         var zoneName = "Test%";
         var expectedMessage = MiniMessage.miniMessage().deserialize(Constants.ZONE_INVALID_MESSAGE,
-            Placeholder.component("prefix", Constants.PREFIX));
+                Placeholder.component("prefix", Constants.PREFIX));
         command.createZone(player, zoneName);
 
         assertFalse(plugin.getConfig().isSet(Constants.CONFIG_ZONE_PATH.formatted(zoneName)));
@@ -34,8 +32,7 @@ class CreateZoneCommandTest extends CommandPluginTestBase {
     }
 
     @Test
-    void testZoneCreated()
-    {
+    void testZoneCreated() {
         var player = server.addPlayer();
         var zoneName = "Test";
         var expectedMessage = MiniMessage.miniMessage().deserialize(Constants.CREATE_ZONE_MESSAGE_SUCCESS,
