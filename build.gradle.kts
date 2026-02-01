@@ -1,10 +1,9 @@
 plugins {
-    id("java")
+    java
+    `maven-publish`
     alias(libs.plugins.run.paper)
     alias(libs.plugins.plugin.yml)
     alias(libs.plugins.shadow)
-
-    `maven-publish`
 }
 
 dependencies {
@@ -17,9 +16,11 @@ dependencies {
     testImplementation(platform(libs.junit.bom))
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.junit.platform.launcher)
-    testRuntimeOnly(libs.junit.jupiter.engine)
     testImplementation(libs.mockbukkit)
+
+    testRuntimeOnly(libs.junit.jupiter.engine)
 }
+
 java {
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
@@ -102,7 +103,6 @@ publishing {
 }
 
 paper {
-
     main = "net.onelitefeather.labyrinth.Labyrinth"
     name = "Labyrinth"
     description = "This is a prototype plugin for the Labyrinth of our Survival Server"
@@ -130,7 +130,5 @@ paper {
         register("labyrinth.setup.deletezone") {
             description = "This permission is needed to delete the zone."
         }
-
     }
 }
-
