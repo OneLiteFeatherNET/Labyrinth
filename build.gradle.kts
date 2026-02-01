@@ -1,10 +1,9 @@
 plugins {
-    id("java")
+    java
+    `maven-publish`
     alias(libs.plugins.run.paper)
     alias(libs.plugins.plugin.yml)
     alias(libs.plugins.shadow)
-
-    `maven-publish`
 }
 
 dependencies {
@@ -14,7 +13,14 @@ dependencies {
     implementation(libs.adventurePlatformBukkit)
     implementation(libs.paper)
 
+    testImplementation(platform(libs.junit.bom))
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.platform.launcher)
+    testImplementation(libs.mockbukkit)
+
+    testRuntimeOnly(libs.junit.jupiter.engine)
 }
+
 java {
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
@@ -29,13 +35,21 @@ tasks {
     }
 
     runServer {
-        minecraftVersion("1.20.6")
+        minecraftVersion("1.21.8")
         jvmArgs("-Xmx2G", "-Dcom.mojang.eula.agree=true")
     }
 
     shadowJar {
         archiveClassifier.set("")
         archiveFileName.set("labyrinth.jar")
+    }
+
+    test {
+        useJUnitPlatform()
+        jvmArgs("-Dlabyrinth.insideTest=true")
+        testLogging {
+            events("passed", "skipped", "failed")
+        }
     }
 }
 
@@ -89,7 +103,6 @@ publishing {
 }
 
 paper {
-
     main = "net.onelitefeather.labyrinth.Labyrinth"
     name = "Labyrinth"
     description = "This is a prototype plugin for the Labyrinth of our Survival Server"
@@ -117,7 +130,5 @@ paper {
         register("labyrinth.setup.deletezone") {
             description = "This permission is needed to delete the zone."
         }
-
     }
 }
-
