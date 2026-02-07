@@ -1,49 +1,49 @@
 # Labyrinth
 <img src="Labyrinth_logo.png" width="50%" height="50%" alt="A labyrinth">
 
+Labyrinth is a Paper plugin for the OneLiteFeather Survival Server. It defines zones where hostile mobs and bats cannot spawn, reducing the need to light the entire labyrinth.
 
-What is the Labyrinth?
----
-Labyrinth is the matching Paper Plugin written in Java for the Labyrinth Community Project on our Survival Server.
-Its whole purpose at the moment is to create a zone where mobs can't spawn so that players don't need to light up the whole labyrinth
+## Features
+- Create zones and manage their center, radius, and mob spawning state.
+- Toggle mob spawning per zone.
+- Zone name validation: alphanumeric only (`A-Z`, `a-z`, `0-9`).
 
-### About Mobspawning
-On our server there is no lighting below / above, and we don't want mobs to spawn there, also Bats are friendly but
-Only spawn in caves or when Minecraft thinks we are in a cave, so we don't want to let them spawn too.
----
-### Permissions
+## Commands
+- `/labyrinth create <zone>`
+- `/labyrinth center <zone>`
+- `/labyrinth setradius <zone>`
+- `/labyrinth toggle <zone>`
+- `/labyrinth delete <zone>`
 
-```labyrinth.setup.center```
-- This permission is needed to create the center of the zone.
----
-```labyrinth.setup.setradius```
-- This permission is needed to set the radius of the zone.
----
-```labyrinth.toggle.mobspawn```
-- This permission is needed to toggle mobspawning for the zone.
----
-```labyrinth.setup.createzone``` 
-- This permission is needed to create a new zone entry.
----
-```labyrinth.setup.deletezone```
-- This permission is needed to delete a zone
----
-### Features (zone needs to be created in this order)
-- Create a zone
-```/labyrinth create <zone>```
----
-- Set Center of a zone
-```/labyrinth center <zone>```
----
-- Set Radius of a zone
-```/labyrinth setradius <zone>```
----
-- Toggle mobspawning of a zone
-```/labyrinth toggle <zone>```
----
-### Get rid of zones:
-- Delete a zone
-  ```/labyrinth delete <zone>```
----
+## Permissions
+- `labyrinth.setup.createzone`
+- `labyrinth.setup.center`
+- `labyrinth.setup.setradius`
+- `labyrinth.toggle.mobspawn`
+- `labyrinth.setup.deletezone`
 
+## Configuration
+- The plugin stores zones under `zones.<zone>` in `config.yml`.
+- Keys used internally:
+- `zones.<zone>.centerLocation`
+- `zones.<zone>.radius`
+- `zones.<zone>.mobspawning`
 
+## Build, Test, and Run (Developers)
+- `./gradlew build`: compile and run tests.
+- `./gradlew test`: run unit tests.
+- `./gradlew shadowJar`: produces `build/libs/labyrinth.jar`.
+- `./gradlew runServer`: starts a local Paper server for manual testing (Minecraft `1.21.11`).
+
+## Project Structure
+- `src/main/java/net/onelitefeather/labyrinth/`: plugin code.
+- `src/main/resources/`: resources (including `config.yml`).
+- `src/test/java/net/onelitefeather/labyrinth/`: JUnit tests (MockBukkit).
+
+## CI and Releases
+- Pull requests run a matrix build on Ubuntu, Windows, and macOS.
+- Releases run on pushes to `main`, `next`, `beta`, or `*.x` using semantic-release.
+
+## Notes
+- The plugin entrypoint is `net.onelitefeather.labyrinth.Labyrinth`.
+- If you change commands, permissions, or config keys, update this README.
