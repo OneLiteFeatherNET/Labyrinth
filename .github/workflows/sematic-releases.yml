@@ -7,6 +7,10 @@ name: Release
       - beta
       - "*.x"
 
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read # for checkout
 
@@ -14,6 +18,7 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     permissions:
       contents: write # to be able to publish a GitHub release
       issues: write # to be able to comment on released issues
