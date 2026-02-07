@@ -4,13 +4,13 @@ dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {
 
-            version("paper", "1.21.8-R0.1-SNAPSHOT")
+            version("paper", "1.21.11-R0.1-SNAPSHOT")
             version("plugin.yml", "0.6.0")
             version("run-paper", "3.0.2")
             version("publishdata", "1.4.0")
             version("shadow", "9.3.0")
             version("junit-bom", "6.0.2")
-            version("mockbukit", "4.76.0")
+            version("mockbukit", "4.101.0")
 
             plugin("plugin.yml", "net.minecrell.plugin-yml.paper").versionRef("plugin.yml")
             plugin("run.paper", "xyz.jpenilla.run-paper").versionRef("run-paper")
