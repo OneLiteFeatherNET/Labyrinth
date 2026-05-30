@@ -10,7 +10,7 @@ dependencyResolutionManagement {
             version("publishdata", "1.4.0")
             version("shadow", "9.4.2")
             version("junit-bom", "6.1.0")
-            version("mockbukit", "4.107.0")
+            version("mockbukit", "4.110.0")
 
             plugin("plugin.yml", "net.minecrell.plugin-yml.paper").versionRef("plugin.yml")
             plugin("run.paper", "xyz.jpenilla.run-paper").versionRef("run-paper")
