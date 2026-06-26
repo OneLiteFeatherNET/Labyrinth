@@ -8,7 +8,7 @@ dependencyResolutionManagement {
             version("plugin.yml", "0.6.0")
             version("run-paper", "3.0.2")
             version("publishdata", "1.4.0")
-            version("shadow", "9.4.2")
+            version("shadow", "9.4.3")
             version("junit-bom", "6.1.0")
             version("mockbukit", "4.110.0")
 
