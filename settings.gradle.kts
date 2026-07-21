@@ -19,7 +19,7 @@ dependencyResolutionManagement {
 
             library("cloudPaper", "org.incendo", "cloud-paper").version("2.0.0-SNAPSHOT")
             library("cloudAnnotations", "org.incendo", "cloud-annotations").version("2.0.0")
-            library("cloudBukkit", "org.incendo", "cloud-bukkit").version("2.0.0-SNAPSHOT")
+            library("cloudBukkit", "org.incendo", "cloud-bukkit").version("2.0.0")
             library("adventurePlatformBukkit", "net.kyori", "adventure-platform-bukkit").version("4.4.1")
 
             library("paper", "io.papermc.paper", "paper-api").versionRef("paper")
