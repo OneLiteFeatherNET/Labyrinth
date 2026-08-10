@@ -4,7 +4,7 @@
   "include-component-in-tag": false,
   "include-v-in-tag": true,
   "pull-request-header": "",
-  "bootstrap-sha": "",
+  "bootstrap-sha": "10d33cc5bdd95ea6503958dc68693e0338361141",
   "packages": {
     ".": {
       "package-name": "labyrinth",
