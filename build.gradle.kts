@@ -6,6 +6,8 @@ plugins {
     alias(libs.plugins.shadow)
 }
 
+version = "1.2.11" // x-release-please-version
+
 dependencies {
     implementation(libs.cloudPaper)
     implementation(libs.cloudAnnotations)

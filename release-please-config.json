@@ -6,7 +6,14 @@
   "packages": {
     ".": {
       "package-name": "Labyrinth",
-      "changelog-path": "CHANGELOG.md"
+      "changelog-path": "CHANGELOG.md",
+      "extra-files": [
+        {
+          "type": "generic",
+          "path": "build.gradle.kts"
+        }
+      ]
     }
-  }
+  },
+  "bootstrap-sha": "70093c3846d2a10764fcec0f502b9b1158526db8"
 }
